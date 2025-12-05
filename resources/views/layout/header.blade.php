@@ -13,8 +13,9 @@
                     active="{{ request()->is('admin/dashboard*') }}"
                 />
                 <x-menu.item
-                    url="#"
+                    url="{{ route('tasks.index') }}"
                     title="Tasks"
+                    active="{{ request()->is('admin/tasks*') }}"
                 />
                 <x-menu.item
                     url="#"

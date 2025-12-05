@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,16 +20,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('admin/')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
-});
-
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('admin', function () {
-        return 'admin';
-    });
-});
-
-Route::prefix('user')->middleware(['auth', 'role:user'])->group(function () {
-    Route::get('user', function () {
-        return 'user';
-    });
+    Route::resource('tasks', TaskController::class);
 });
