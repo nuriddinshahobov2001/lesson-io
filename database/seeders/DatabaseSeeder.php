@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             $imageContent = file_get_contents($imageUrl);
             Storage::put('avatars/' . $imageName, $imageContent);
             $users[] = [
-                'name' => 'User ' . $i,
-                'email' => 'user' . $i . '@gmail.com',
+                'name' => fake()->name,
+                'email' => fake()->email,
                 'password' => bcrypt('password'),
                 'role' => 'user',
                 'avatar' => 'storage/avatars/' . $imageName,
@@ -38,5 +38,8 @@ class DatabaseSeeder extends Seeder
         }
 
         User::query()->insert($users);
+        $this->call([
+           CreateTasksSeeder::class,
+        ]);
     }
 }

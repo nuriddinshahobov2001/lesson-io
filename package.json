@@ -16,6 +16,8 @@
     },
     "dependencies": {
         "apexcharts": "^5.3.6",
+        "notyf": "^3.10.0",
+        "sortablejs": "^1.15.6",
         "tailwind-scrollbar-hide": "^4.0.0"
     }
 }

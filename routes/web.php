@@ -21,4 +21,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('admin/')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('tasks', TaskController::class);
+    Route::post('/tasks/change-status', [TaskController::class, 'changeStatus'])->name('tasks.change-status');
 });

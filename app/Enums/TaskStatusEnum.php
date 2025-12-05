@@ -23,4 +23,15 @@ enum TaskStatusEnum: string
             self::TODO => 'Todo'
         };
     }
+
+    public function color(): string
+    {
+        return match($this) {
+            self::TODO => 'bg-amber-200',
+            self::IN_PROGRESS => 'bg-blue-200',
+            self::COMPLETED => 'bg-green-200',
+            self::FAILED => 'bg-red-200',
+        };
+    }
+
 }
