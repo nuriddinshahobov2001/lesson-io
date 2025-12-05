@@ -1,5 +1,5 @@
 <header class="bg-gray-800 text-white">
-    <div class="container mx-auto flex justify-between items-center p-4">
+    <div class=" mx-auto flex justify-between items-center p-4 px-6">
         <a href="{{ route('dashboard.index') }}"
            class="text-xl font-bold">
             Team Task Manager
@@ -10,7 +10,7 @@
                 <x-menu.item
                     url="{{ route('dashboard.index') }}"
                     title="Dashboard"
-                    active="{{ request()->is('dashboard*') }}"
+                    active="{{ request()->is('admin/dashboard*') }}"
                 />
                 <x-menu.item
                     url="#"
@@ -25,7 +25,7 @@
                         @csrf
                         <button type="submit"
                                 class="block w-full text-left px-4 py-2 text-sm text-white cursor-pointer border border-slate-200 rounded-sm hover:bg-slate-200 hover:text-gray-800 transition duration-300">
-                            Выйти
+                            Logout
                         </button>
                     </form>
                 </div>

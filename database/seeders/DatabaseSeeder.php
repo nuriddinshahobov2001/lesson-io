@@ -5,14 +5,12 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         User::query()->create([
@@ -21,5 +19,24 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
+
+        $users = [];
+        for ($i = 0; $i < 10; $i++) {
+            $imageUrl = 'https://i.pravatar.cc/300?img=' . rand(1, 70);
+            $imageName = 'user_' . $i . '.jpg';
+            $imageContent = file_get_contents($imageUrl);
+            Storage::put('avatars/' . $imageName, $imageContent);
+            $users[] = [
+                'name' => 'User ' . $i,
+                'email' => 'user' . $i . '@gmail.com',
+                'password' => bcrypt('password'),
+                'role' => 'user',
+                'avatar' => 'storage/avatars/' . $imageName,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        User::query()->insert($users);
     }
 }

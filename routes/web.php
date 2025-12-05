@@ -17,6 +17,18 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(function () {
+Route::prefix('admin/')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
+});
+
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('admin', function () {
+        return 'admin';
+    });
+});
+
+Route::prefix('user')->middleware(['auth', 'role:user'])->group(function () {
+    Route::get('user', function () {
+        return 'user';
+    });
 });

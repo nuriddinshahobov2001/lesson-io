@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -10,4 +10,10 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    server: {
+        host: 'lesson-io.local', // ваш локальный домен
+        port: 5173,              // порт dev сервера
+        strictPort: true,
+        cors: true,              // включаем CORS
+    },
 });

@@ -12,16 +12,13 @@
     <!-- Подключаем Font Awesome в <head> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
-    <!-- Styles / Scripts -->
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
-<body>
+<body class="bg-white">
 @auth
     @include('layout.header')
     @yield('content')
-{{--    @include('layout.footer')--}}
 @else
     @yield('content')
 @endauth
