@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const columns = document.querySelectorAll('.task-list');
+    if (columns.length === 0) return;
     const csrf = document.getElementById('kanban').dataset.csrf;
     const loading = document.getElementById('loading');
 
@@ -17,14 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
             draggable: '.task-item',
             ghostClass: 'drag-ghost',
             onEnd: function (evt) {
-                const newStatus = evt.to.closest('[id^=column-]').id.replace('column-', '');
+                const boardId = evt.to.closest('[id^=column-]').id.replace('column-', '');
                 const taskOrder = Array.from(evt.to.querySelectorAll('.task-item'))
                     .map((el, index) => ({
                         id: el.dataset.id,
                         position: index + 1
                     }));
 
-                // Показываем спиннер
                 loading.classList.remove('hidden');
 
                 fetch('/admin/tasks/change-status', {
@@ -35,13 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
-                        status: newStatus,
+                        board_id: boardId,
                         taskOrder: taskOrder
                     })
                 })
                     .then(res => res.json())
                     .then(data => {
-                        loading.classList.add('hidden'); // скрываем спиннер
+                        console.log('asdfasdfasdf');
+                        console.log(data);
+                        loading.classList.add('hidden');
                         if (data.success) {
                             notify.success('Task updated successfully!');
                         } else {
@@ -55,5 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
             }
         });
+    });
+
+    // Закрытие <details> при клике вне элемента
+    document.addEventListener("click", e => {
+        document.querySelectorAll("details[open]").forEach(d =>
+            !d.contains(e.target) && d.removeAttribute("open")
+        )
     });
 });

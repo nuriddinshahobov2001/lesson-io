@@ -4,15 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->integer('position')->after('board_id')->default(0);
+        Schema::table('boards', function (Blueprint $table) {
+            $table->integer('position')->after('color')->default(0);
         });
     }
 
@@ -21,7 +20,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
+        Schema::table('boards', function (Blueprint $table) {
             $table->dropColumn('position');
         });
     }

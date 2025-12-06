@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Tasks;
 
+use App\Models\Board;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateStatusTaskRequest extends FormRequest
@@ -10,7 +11,7 @@ class UpdateStatusTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|string|in:todo,in-progress,completed,failed',
+            'board_id' => 'required|string',
             'taskOrder' => 'required|array',
             'taskOrder.*.id' => 'required|exists:tasks,id',
             'taskOrder.*.position' => 'required|integer|min:1',

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->enum('status', ['in-progress', 'completed', 'failed', 'todo'])->default('todo');
+            $table->foreignId('board_id')->constrained('boards')->onDelete('cascade');
             $table->unsignedBigInteger('priority')->default(\App\Enums\TaskPriorityEnum::LOW);
             $table->dateTime('due_date')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();

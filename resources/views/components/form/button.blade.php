@@ -4,7 +4,7 @@
 ])
 
 @php
-    $base = "px-4 py-2 rounded font-semibold text-white w-full text-center";
+    $base = "px-4 py-2 rounded font-semibold cursor-pointer text-white w-full text-center";
 
     $variants = [
         'primary' => "bg-blue-600 hover:bg-blue-700",
