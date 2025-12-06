@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Enums\TaskStatusEnum;
 use App\Models\Task;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Random\RandomException;
 
 class CreateTasksSeeder extends Seeder
 {
@@ -21,7 +18,7 @@ class CreateTasksSeeder extends Seeder
                 'created_by' => 1,
                 'priority' => rand(0, 2),
                 'assigned_to' => rand(2, 10),
-                'status' => fake()->randomElement(TaskStatusEnum::values()),
+                'board_id' => rand(1,4),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

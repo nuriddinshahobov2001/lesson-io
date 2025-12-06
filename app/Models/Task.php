@@ -9,7 +9,7 @@ class Task extends Model
     protected $fillable = [
         'name',
         'description',
-        'status',
+        'board_id',
         'position',
         'priority',
         'due_date',
@@ -30,7 +30,6 @@ class Task extends Model
     protected function casts(): array
     {
         return [
-            'status' => \App\Enums\TaskStatusEnum::class,
             'priority' => \App\Enums\TaskPriorityEnum::class,
             'due_date' => 'datetime',
         ];

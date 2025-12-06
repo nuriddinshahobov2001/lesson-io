@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BoardController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\AuthController;
@@ -18,8 +19,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('admin/')->middleware(['auth', 'role:admin'])->group(function () {
+Route::prefix('admin/')->middleware(['auth', 'role:admin'])->group(callback: function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('tasks', TaskController::class);
-    Route::post('/tasks/change-status', [TaskController::class, 'changeStatus'])->name('tasks.change-status');
+    Route::resource('boards', BoardController::class)->only('store', 'update', 'destroy');
+    Route::post('/tasks/change-status', [TaskController::class, 'changeStatus']);
+    Route::post('/board/change-status', [BoardController::class, 'changeStatus']);
 });
