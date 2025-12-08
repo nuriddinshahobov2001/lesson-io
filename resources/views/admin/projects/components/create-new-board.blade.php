@@ -1,4 +1,4 @@
-<div class="bg-white shadow-2xs rounded-lg p-4 flex flex-col max-h-[240px] min-w-[300px]">
+<div class="bg-white shadow-[-7px_16px_49px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-4 flex flex-col max-h-[240px] min-w-[300px]">
 
     <h2 class="font-semibold mb-2">Create new board</h2>
     <form action="{{ route('boards.store') }}" method="POST">
@@ -8,8 +8,14 @@
             id="board_name"
             placeholder="Enter board name"
             value="{{ old('board_name') }}"
+            class="mb-4"
         />
-
+        <x-form.input
+            type="hidden"
+            id="project_id"
+            name="project_id"
+            value="{{ $project->id }}"
+        />
         <p>Select color</p>
         <div class="flex gap-2 mt-2">
             @foreach(\App\Enums\BoardColorsEnum::cases() as $color)

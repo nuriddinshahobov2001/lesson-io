@@ -35,9 +35,10 @@ class BoardController extends Controller
             'name' => $data['board_name'],
             'color' => $data['board_color'],
             'user_id' => auth()->id(),
+            'project_id' => $data['project_id'],
             'position' => Board::query()->count() + 1,
         ]);
-        return redirect()->route('tasks.index')->with('success', 'Board created!');
+        return redirect()->route('projects.show', $data['project_id'])->with('success', 'Board created!');
     }
 
     /**
@@ -71,15 +72,25 @@ class BoardController extends Controller
     {
         $board = Board::query()->findOrFail($id);
         $board->delete();
-        return redirect()->route('tasks.index')->with('success', 'Board created!');
+        return redirect()->route('projects.show', request()->input('project_id'))->with('success', 'Board created!');
     }
 
     public function changeStatus(Request $request)
     {
-        foreach ($request->order as $board) {
-            Board::query()->where('id', $board['id'])
-                ->update(['position' => $board['position']]);
+        try {
+            foreach ($request->order as $board) {
+                Board::query()->where('id', $board['id'])
+                    ->update(['position' => $board['position']]);
+            }
+            return response()->json([
+                'success' => true,
+                'order' => $request->order,
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => true,
+                'message' => $exception->getMessage(),
+            ]);
         }
-        return response()->json(['success' => true]);
     }
 }

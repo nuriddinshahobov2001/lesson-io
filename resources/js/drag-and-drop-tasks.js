@@ -1,8 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const columns = document.querySelectorAll('.task-list');
-    if (columns.length === 0) return;
-    const csrf = document.getElementById('kanban').dataset.csrf;
-    const loading = document.getElementById('loading');
+$(function () {
+
+    const $columns = $('.task-list');
+    if ($columns.length === 0) return;
+
+    const csrf = $('#kanban').data('csrf');
+    const $loading = $('#loading');
 
     const notify = new Notyf({
         position: { x: 'right', y: 'top' },
@@ -11,58 +13,71 @@ document.addEventListener('DOMContentLoaded', () => {
         dismissible: true
     });
 
-    columns.forEach(column => {
-        new Sortable(column, {
-            group: 'tasks',
+    $columns.each(function () {
+
+
+        new Sortable(this, {
+            group: { name: 'tasks', pull: true, put: true },
             animation: 150,
             draggable: '.task-item',
             ghostClass: 'drag-ghost',
-            onEnd: function (evt) {
-                const boardId = evt.to.closest('[id^=column-]').id.replace('column-', '');
-                const taskOrder = Array.from(evt.to.querySelectorAll('.task-item'))
-                    .map((el, index) => ({
-                        id: el.dataset.id,
+
+            emptyInsertThreshold: 50,
+            swapThreshold: 0.5,
+            fallbackOnBody: true,
+            forceFallback: false,
+
+            onEnd(evt) {
+                if (evt.oldIndex === evt.newIndex && evt.from === evt.to) {
+                    return;
+                }
+
+                const boardId = $(evt.to).closest('[id^=column-]').attr('id').replace('column-', '');
+
+                const taskOrder = $(evt.to).find('.task-item').map(function (index) {
+                    return {
+                        id: $(this).data('id'),
                         position: index + 1
-                    }));
+                    };
+                }).get();
 
-                loading.classList.remove('hidden');
+                $loading.removeClass('hidden');
 
-                fetch('/admin/tasks/change-status', {
+                $.ajax({
+                    url: '/admin/tasks/change-status',
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrf,
-                        'Accept': 'application/json'
+                        'X-CSRF-TOKEN': csrf
                     },
-                    body: JSON.stringify({
+                    contentType: 'application/json',
+                    data: JSON.stringify({
                         board_id: boardId,
                         taskOrder: taskOrder
-                    })
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log('asdfasdfasdf');
-                        console.log(data);
-                        loading.classList.add('hidden');
+                    }),
+
+                    success: function (data) {
+                        $loading.addClass('hidden');
+
                         if (data.success) {
                             notify.success('Task updated successfully!');
+                            setTimeout(function () {
+                                location.reload(); // перезагрузка страницы
+                            }, 100);
                         } else {
                             notify.error('Failed to update task!');
                         }
-                    })
-                    .catch(err => {
-                        loading.classList.add('hidden');
-                        console.error(err);
+                    },
+
+                    error: function (xhr) {
+                        $loading.addClass('hidden');
+                        console.error(xhr);
                         notify.error('Something went wrong!');
-                    });
+                    }
+                });
+
             }
         });
+
     });
 
-    // Закрытие <details> при клике вне элемента
-    document.addEventListener("click", e => {
-        document.querySelectorAll("details[open]").forEach(d =>
-            !d.contains(e.target) && d.removeAttribute("open")
-        )
-    });
 });

@@ -19,6 +19,7 @@
                     type="name"
                     label="Name"
                     placeholder="Enter name"
+                    class="mb-4"
                     required
                 />
 
@@ -28,6 +29,7 @@
                     type="email"
                     label="E-mail"
                     placeholder="Enter e-mail"
+                    class="mb-4"
                     required
                 />
 
@@ -37,6 +39,7 @@
                     type="password"
                     label="Password"
                     placeholder="Enter password"
+                    class="mb-4"
                     required
                 />
 
@@ -46,6 +49,7 @@
                     type="password"
                     label="Confirmation password"
                     placeholder="Confirmation password"
+                    class="mb-4"
                     required
                 />
 

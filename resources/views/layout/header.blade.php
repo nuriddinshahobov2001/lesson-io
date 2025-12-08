@@ -7,20 +7,11 @@
 
         <nav class="flex items-center gap-4">
             @auth
-                <x-menu.item
-                    url="{{ route('dashboard.index') }}"
-                    title="Dashboard"
-                    active="{{ request()->is('admin/dashboard*') }}"
-                />
-                <x-menu.item
-                    url="{{ route('tasks.index') }}"
-                    title="Tasks"
-                    active="{{ request()->is('admin/tasks*') }}"
-                />
-                <x-menu.item
-                    url="#"
-                    title="Profile"
-                />
+                @if(request()->user()->role === 'admin')
+                    @include('layout.admin-header')
+                @else
+                    @include('layout.user-header')
+                @endif
                 <div class="py-1">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

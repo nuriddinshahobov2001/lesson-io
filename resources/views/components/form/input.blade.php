@@ -7,7 +7,7 @@
     'required' => false,
 ])
 
-<div class="mb-4">
+<div>
     @if($label)
         <label class="block text-gray-700 mb-1" for="{{ $id }}">
             {{ $label }}

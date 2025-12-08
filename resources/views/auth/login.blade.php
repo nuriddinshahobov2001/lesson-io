@@ -17,6 +17,7 @@
                     label="E-mail"
                     placeholder="Enter e-mail"
                     required
+                    class="mb-4"
                 />
 
                 <x-form.input
@@ -26,6 +27,7 @@
                     label="Password"
                     placeholder="Enter password"
                     required
+                    class="mb-4"
                 />
                 <x-form.checkbox
                     id="remember"

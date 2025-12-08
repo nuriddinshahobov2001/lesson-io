@@ -50,8 +50,10 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerate();
-
-        return redirect()->route('dashboard.index')->with('success', 'You are logged in.');
+        if(request()->user()->role === 'admin')
+            return redirect()->route('dashboard.index')->with('success', 'You are logged in.');
+        else
+            return redirect()->route('dashboard-user.index')->with('success', 'You are logged in.');
     }
 
     public function logout(Request $request)

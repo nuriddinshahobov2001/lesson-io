@@ -13,6 +13,15 @@ enum TaskPriorityEnum: int
         return array_column(self::cases(), 'value');
     }
 
+    public static function getKeyValue(): array
+    {
+        return [
+            self::LOW->value => 'Low',
+            self::MEDIUM->value => 'Medium',
+            self::HIGH->value => 'HIGH',
+        ];
+    }
+
     public function label(): string
     {
         return match ($this) {
