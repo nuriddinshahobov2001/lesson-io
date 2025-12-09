@@ -44,7 +44,7 @@ $(function () {
                 $loading.removeClass('hidden');
 
                 $.ajax({
-                    url: '/admin/tasks/change-status',
+                    url: '/tasks/change-status',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': csrf
@@ -60,9 +60,7 @@ $(function () {
 
                         if (data.success) {
                             notify.success('Task updated successfully!');
-                            setTimeout(function () {
-                                location.reload(); // перезагрузка страницы
-                            }, 100);
+
                         } else {
                             notify.error('Failed to update task!');
                         }

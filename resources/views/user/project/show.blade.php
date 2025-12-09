@@ -1,15 +1,17 @@
 @extends('layout.app')
 
-@section('title', $project->name)
+@section('title', 'Projects')
 
 @section('content')
     <div class="flex min-h-[calc(100vh-80px)]">
-        <div class="min-w-[220px] bg-slate-800 text-white p-4 overflow-y-auto">
+        <div class="min-w-[220px] bg-gray-800 text-white p-4 overflow-y-auto">
             <h2 class="text-md font-semibold mb-3 text-slate-500">Projects</h2>
+
             <ul class="space-y-1">
                 @foreach($projects as $pr)
                     <li>
-                        <a href="{{ route('projects.show', $pr->id) }}" class="@if($pr->id === $project->id) bg-slate-700 @endif block px-3 py-2 rounded-md transition hover:bg-slate-700">
+                        <a href="{{ route('projects-user.show', $pr->id) }}"
+                           class="@if($pr->id === $project->id) bg-slate-700 @endif block px-3 py-2 rounded-md transition hover:bg-slate-700">
                             <div class="flex justify-between items-center">
                                 <span class="text-sm">{{ \Str::limit($pr->name, 13) }}</span>
                                 <span class="px-2 rounded-sm bg-red-500 text-xs">{{ $pr->boards?->count() }}</span>
@@ -21,7 +23,7 @@
         </div>
         <div class="flex-1 overflow-x-auto overflow-y-hidden custom-scroll">
             @include('components.alerts.errors')
-            @include('admin.projects.components.board')
+            @include('user.project.components.board')
             @include('components.loading')
         </div>
     </div>

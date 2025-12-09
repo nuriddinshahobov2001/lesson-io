@@ -17,4 +17,9 @@ class Project extends Model
     {
         return $this->hasMany(Board::class, 'project_id')->orderBy('position');
     }
+
+    public function members()
+    {
+        return $this->hasMany(ProjectUser::class, 'project_id');
+    }
 }

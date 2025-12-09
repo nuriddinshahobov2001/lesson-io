@@ -3,6 +3,12 @@
     title="Dashboard"
     active="{{ request()->is('user/dashboard-user*') }}"
 />
+
+<x-menu.item
+    url="{{ route('projects-user.index') }}"
+    title="Project"
+    active="{{ request()->is('user/projects-user*') }}"
+/>
 {{--<x-menu.item--}}
 {{--    url="{{ route('tasks-user.index') }}"--}}
 {{--    title="Tasks"--}}

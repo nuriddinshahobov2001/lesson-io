@@ -47,11 +47,15 @@
                                 @endforeach
                             </div>
                         </div>
+
                     </div>
                 @endif
             @else
                 <div class="flex justify-center items-center cursor-pointer">
-                    <div class=" border border-blue-500 px-4 rounded-md py-1 text-blue-500 hover:text-white hover:bg-blue-500 transition duration-300">Add member</div>
+                    <div
+                        class=" border border-blue-500 px-4 rounded-md py-1 text-blue-500 hover:text-white hover:bg-blue-500 transition duration-300">
+                        Add member
+                    </div>
                 </div>
             @endif
 

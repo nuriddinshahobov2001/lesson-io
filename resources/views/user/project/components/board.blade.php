@@ -1,4 +1,4 @@
-@include('admin.projects.components.project-users')
+@include('user.project.components.project-users')
 <div id="kanban" class="flex gap-4 p-4 mt-13 items-start"
      data-csrf="{{ csrf_token() }}">
     @foreach($project->boards as $board)
@@ -11,7 +11,7 @@
                     <span class="add-task-btn text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer" data-board-id="{{ $board->id }}">Add new task</span>
                 </div>
                 <div class="flex gap-2 items-center">
-                    @include('admin.projects.components.edit-board-button')
+                    @include('user.project.components.edit-board-button')
                 </div>
             </div>
 
@@ -43,6 +43,6 @@
             </div>
         </div>
     @endforeach
-    @include('admin.projects.components.create-new-board')
+    @include('user.project.components.create-new-board')
 </div>
-@include('admin.projects.components.add-task-modal')
+@include('user.project.components.add-task-modal')

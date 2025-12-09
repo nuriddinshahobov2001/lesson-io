@@ -35,7 +35,7 @@ $(function () {
             $loading.removeClass('hidden');
 
             $.ajax({
-                url: '/admin/board/change-status',
+                url: '/board/change-status',
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': csrf

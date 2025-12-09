@@ -10,7 +10,7 @@
             <ul class="space-y-1">
                 @foreach($projects as $project)
                     <li>
-                        <a href="{{ route('projects.show', $project->id) }}" class=" block px-3 py-2 rounded-md transition hover:bg-slate-700">
+                        <a href="{{ route('projects-user.show', $project->id) }}" class=" block px-3 py-2 rounded-md transition hover:bg-slate-700">
                             <div class="flex justify-between items-center">
                                 <span class="text-sm">{{ \Str::limit($project->name, 13) }}</span>
                                 <span class="px-2 rounded-sm bg-red-500 text-xs">{{ $project->boards?->count() }}</span>
@@ -29,7 +29,7 @@
                      class="mx-auto mb-3 w-14 h-14 opacity-70"
                      fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M3 7.5A2.25 2.25 0 0 1 5.25 5h3.375c.621 0 1.205.292 1.584.792L12 8.25h6.75A2.25 2.25 0 0 1 21 10.5v6.75A2.25 2.25 0 0 1 18.75 19.5H5.25A2.25 2.25 0 0 1 3 17.25V7.5Z" />
+                          d="M3 7.5A2.25 2.25 0 0 1 5.25 5h3.375c.621 0 1.205.292 1.584.792L12 8.25h6.75A2.25 2.25 0 0 1 21 10.5v6.75A2.25 2.25 0 0 1 18.75 19.5H5.25A2.25 2.25 0 0 1 3 17.25V7.5Z"/>
                 </svg>
 
                 <!-- Заголовок -->
